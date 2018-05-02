@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour {
 	public GameObject Laser;
 	public float fireSpeed = 10.0f;
-	private float health = 150.0f;
+	public float health = 150.0f;
+	private float maxHealth;
 	private float prob;
 	public float enemySpeed = -2f;
 	public int scoreValue = 10;
 	public GameObject[] dropItem;
-	private PlayerControler Player;
+	private float initialSpeed;
 
-	private ScoreKeeper SK;
+	public Image healthBarBG;
+	public Image healthBar;
+
+	private PlayerControler Player;
 
 	private System.Random rand;
 	private int dropIndex;
@@ -21,8 +26,16 @@ public class EnemyBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Player = GameObject.Find("player").GetComponent<PlayerControler> ();
-		SK = GameObject.Find ("Panel").GetComponent<ScoreKeeper> ();
+		if (Player == null)
+			return;
+		healthBarBG.enabled = false;
+		healthBar.enabled = false;
+		initialSpeed = enemySpeed;
+	}
+
+	void Awake(){
 		rand = new System.Random ();
+		maxHealth = health;
 	}
 	
 	// Update is called once per frame
@@ -36,14 +49,16 @@ public class EnemyBehaviour : MonoBehaviour {
 		rb.velocity = new Vector3 (0, enemySpeed, 0);
 		if (health <= 0) {
 			Destroy (gameObject);
-			dropIndex = rand.Next(dropItem.Length);
-			GameObject drop = Instantiate (dropItem[dropIndex], this.transform.position, this.transform.rotation);
+			if (dropItem.Length > 1)
+				dropIndex = rand.Next (dropItem.Length);
+			//Debug.Log ("drop:"+dropIndex+" length:"+dropItem.Length);
+			Instantiate (dropItem[dropIndex], this.transform.position, this.transform.rotation);
 		}
 
 		if (Player.getBoostStatus())
-			enemySpeed = -15f;
+			enemySpeed = -30f;
 		else
-			enemySpeed = -2f;
+			enemySpeed = initialSpeed;
 
 		if (Player.getBoostTime () <= 0.5)
 			health = 0;
@@ -60,7 +75,10 @@ public class EnemyBehaviour : MonoBehaviour {
 			ProjectTile beam = col.gameObject.GetComponent<ProjectTile> ();
 			if (beam) {
 				health -= beam.GetDamage ();
+				healthBarBG.enabled = true;
+				healthBar.enabled = true;
 				beam.Hit ();
+				healthBar.fillAmount =  health/maxHealth;
 			}
 		}
 		if(col.CompareTag("Player")){

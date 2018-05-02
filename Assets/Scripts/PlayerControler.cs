@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControler : MonoBehaviour {
 	public GameObject[] Laser;
@@ -12,7 +13,6 @@ public class PlayerControler : MonoBehaviour {
 	private bool boost = false; // id 3
 	private bool magnet = false; // id 4
 
-
 	private float doubleLaserTime = 10;
 	private float boostTime = 3;
 	private float invinsibleTime = 10;
@@ -23,6 +23,7 @@ public class PlayerControler : MonoBehaviour {
 
 	private ScoreKeeper SK;
 	private int baseLevelIndex = 0;
+	private int levelIndex;
 
 	public float speed = 5.0f;
 	public float beamSpeed = 15.0f;
@@ -44,6 +45,7 @@ public class PlayerControler : MonoBehaviour {
 		SK = GameObject.Find ("Panel").GetComponent<ScoreKeeper> ();
 		Camera camera = Camera.main;
 		baseLevelIndex = PlayerPrefs.GetInt ("baseLevel");
+		levelIndex = baseLevelIndex;
 		xMin = camera.ViewportToWorldPoint (new Vector3 (0, 0)).x +padding;
 		xMax = camera.ViewportToWorldPoint (new Vector3 (1, 0)).x -padding;
 
@@ -66,12 +68,16 @@ public class PlayerControler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.RightArrow)) {
-			this.transform.position = new Vector2 (Mathf.Clamp(this.transform.position.x + speed * Time.deltaTime, xMin, xMax) ,this.transform.position.y);
+		/*
+		if () {
+			if () {
+				this.transform.position = new Vector2 (Mathf.Clamp(this.transform.position.x + speed * Time.deltaTime, xMin, xMax) ,this.transform.position.y);
+			}
+			if () {
+				this.transform.position = new Vector2 (Mathf.Clamp(this.transform.position.x - speed * Time.deltaTime, xMin, xMax) ,this.transform.position.y);
+			}
 		}
-		if (Input.GetKey (KeyCode.LeftArrow)) {
-			this.transform.position = new Vector2 (Mathf.Clamp(this.transform.position.x - speed * Time.deltaTime, xMin, xMax) ,this.transform.position.y);
-		}
+
 		//fire with controll input
 		/*
 		if (Input.GetKey (KeyCode.Space) && Time.time > nextFire) {
@@ -115,18 +121,19 @@ public class PlayerControler : MonoBehaviour {
 			GameObject beam2;
 
 			//for double laser
-			Vector2 leftSide = new Vector2(this.transform.position.x+0.5f, this.transform.position.y);
-			Vector2 rightSide = new Vector2(this.transform.position.x-0.5f, this.transform.position.y);
+			Vector2 leftSide = new Vector2(this.transform.position.x+0.5f, this.transform.position.y+0.5f);
+			Vector2 rightSide = new Vector2(this.transform.position.x-0.5f, this.transform.position.y+0.5f);
+			Vector2 normalPos = new Vector2 (this.transform.position.x, this.transform.position.y+0.5f);
 
 			if(levelUp){
 				if (doubleLaser) {
-					beam = Instantiate (Laser[baseLevelIndex+1], leftSide, Quaternion.identity);
-					beam2 = Instantiate (Laser[baseLevelIndex+1], rightSide, Quaternion.identity);
+					beam = Instantiate (Laser[levelIndex], leftSide, Quaternion.identity);
+					beam2 = Instantiate (Laser[levelIndex], rightSide, Quaternion.identity);
 					Rigidbody2D rb2 = beam2.GetComponent<Rigidbody2D> ();
 					rb2.velocity = new Vector3 (0, beamSpeed, 0);
 				}
 				else
-					beam = Instantiate (Laser[baseLevelIndex + 1], this.transform.position, Quaternion.identity);// as GameObject;
+					beam = Instantiate (Laser[levelIndex], normalPos, Quaternion.identity);// as GameObject;
 			}
 			else{
 				if (doubleLaser) {
@@ -136,7 +143,7 @@ public class PlayerControler : MonoBehaviour {
 					rb2.velocity = new Vector3 (0, beamSpeed, 0);
 				}
 				else
-					beam = Instantiate (Laser[baseLevelIndex], this.transform.position, Quaternion.identity);// as GameObject;
+					beam = Instantiate (Laser[baseLevelIndex], normalPos, Quaternion.identity);// as GameObject;
 			}
 				
 			Rigidbody2D rb = beam.GetComponent<Rigidbody2D> ();
@@ -151,13 +158,24 @@ public class PlayerControler : MonoBehaviour {
 				if (col.CompareTag (value)) {
 					Destroy (gameObject);
 					SK.StoreHighScore (SK.getScore ());
+					SceneManager.LoadScene ("Win Screen");
 					return;
 				}
 			}
 		}
 		if(col.CompareTag("Coin")){
+			int value = 0;
+			switch(col.GetComponent<PowerUpScript>().id){
+			case 0:
+				value = 1;
+				break;
+			case 1:
+				value = 10;
+				break;
+			}
+
 			Destroy (col.gameObject);
-			SK.ScoreCount (10);
+			SK.ScoreCount (value);
 		}
 		if (col.CompareTag ("PowerUp")) {
 			Destroy (col.gameObject);
@@ -167,6 +185,8 @@ public class PlayerControler : MonoBehaviour {
 			}
 			else if(col.GetComponent<PowerUpScript> ().id == 1){
 				levelUp = true;
+				if(levelIndex < Laser.Length-1)
+					levelIndex++;
 			}
 			else if(col.GetComponent<PowerUpScript> ().id == 3){
 				ES.spawnTime = 0.3f;
@@ -174,6 +194,6 @@ public class PlayerControler : MonoBehaviour {
 				ES.BoostDetected ();
 			}
 		}
-
 	}
+
 }

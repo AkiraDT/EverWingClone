@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerUpScript : MonoBehaviour {
 	private float powerUpSpeed = -10f;
-	public float id = 0;
+	public int id = 0;
 	// Use this for initialization
 	void Start () {
 		

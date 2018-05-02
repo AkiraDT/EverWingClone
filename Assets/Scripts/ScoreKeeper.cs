@@ -9,6 +9,8 @@ public class ScoreKeeper : MonoBehaviour {
 	public GameObject mytext;
 	public GameObject highScoreText;
 
+	public int coin{get{ return PlayerPrefs.GetInt ("coin");}}
+
 	// Use this for initialization
 	void Start () {
 		Reset ();
@@ -19,6 +21,8 @@ public class ScoreKeeper : MonoBehaviour {
 	public void ScoreCount(int points){
 		score += points;
 		mytext.GetComponent<Text>().text = score.ToString ();
+		if (score > PlayerPrefs.GetInt ("highScore"))
+			HighScoreReached ();
 	}
 
 	public int getScore(){
@@ -30,11 +34,18 @@ public class ScoreKeeper : MonoBehaviour {
 		score = 0;
 	}
 
+	public void HighScoreReached(){
+		highScoreText.GetComponent<Text>().text = "HIGHSCORE";
+	}
+
 	public void StoreHighScore(int newHighScore){
 		int oldHighScore = PlayerPrefs.GetInt ("highScore", 0);
 		if (newHighScore > oldHighScore) {
 			PlayerPrefs.SetInt ("highScore", newHighScore);
 			highScoreText.GetComponent<Text> ().text = newHighScore.ToString();
 		}
+
+		int oldCoin = PlayerPrefs.GetInt ("coin");
+		PlayerPrefs.SetInt ("coin", oldCoin + newHighScore);
 	}
 }
