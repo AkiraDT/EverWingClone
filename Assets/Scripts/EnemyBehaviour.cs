@@ -8,20 +8,17 @@ public class EnemyBehaviour : MonoBehaviour {
 	public GameObject Laser;
 	public float fireSpeed = 10.0f;
 	public float health = 150.0f;
-	private float maxHealth;
-	private float prob;
-	public float enemySpeed = -2f;
-	public int scoreValue = 10;
+	public float enemySpeed;
 	public GameObject[] dropItem;
-	private float initialSpeed;
-
 	public Image healthBarBG;
 	public Image healthBar;
 
 	private PlayerControler Player;
-
+	private float maxHealth;
+	private float prob;
 	private System.Random rand;
 	private int dropIndex;
+	private float initialSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -30,12 +27,15 @@ public class EnemyBehaviour : MonoBehaviour {
 			return;
 		healthBarBG.enabled = false;
 		healthBar.enabled = false;
+		enemySpeed = GameObject.Find ("WaveManager").GetComponent<WaveManagerScript> ().n_enemySpeed;
 		initialSpeed = enemySpeed;
+		health += GameObject.Find ("WaveManager").GetComponent<WaveManagerScript> ().n_enemyHealth;
+		maxHealth = health;
 	}
 
 	void Awake(){
 		rand = new System.Random ();
-		maxHealth = health;
+
 	}
 	
 	// Update is called once per frame
@@ -55,8 +55,10 @@ public class EnemyBehaviour : MonoBehaviour {
 			Instantiate (dropItem[dropIndex], this.transform.position, this.transform.rotation);
 		}
 
-		if (Player.getBoostStatus())
+		if (Player.getBoostStatus ()) {
+			initialSpeed = enemySpeed;
 			enemySpeed = -30f;
+		}
 		else
 			enemySpeed = initialSpeed;
 

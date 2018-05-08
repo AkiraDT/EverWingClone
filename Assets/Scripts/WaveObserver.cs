@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveObserver : MonoBehaviour {
-	public GameObject waveSign;
+	public float enemySpeed;
+
+	private GameObject waveSign;
+	private float initialSpeed;
+	private WaveClearUI WaveUI;
 	private PlayerControler Player;
 	private int counter = 5;
 	private ScoreKeeper SK;
-	public float enemySpeed = -2f;
-	private float initialSpeed;
-	private WaveClearUI WaveUI;
-
 	// Use this for initialization
 	void Awake () {
 		Player = GameObject.Find("player").GetComponent<PlayerControler> ();
 		SK = GameObject.Find ("Panel").GetComponent<ScoreKeeper> ();
+		enemySpeed = GameObject.Find ("WaveManager").GetComponent<WaveManagerScript> ().n_enemySpeed;
 		initialSpeed = enemySpeed;
 		WaveUI = GameObject.Find ("WaveClear").GetComponent<WaveClearUI>();
 	}
@@ -31,8 +32,10 @@ public class WaveObserver : MonoBehaviour {
 		Rigidbody2D rb = this.GetComponent<Rigidbody2D> ();
 		rb.velocity = new Vector3 (0, enemySpeed, 0);
 
-		if (Player.getBoostStatus())
+		if (Player.getBoostStatus ()) {
+			initialSpeed = enemySpeed;
 			enemySpeed = -30f;
+		}
 		else
 			enemySpeed = initialSpeed;
 

@@ -5,19 +5,18 @@ using UnityEngine;
 public class SweeperSpawnerScript : MonoBehaviour {
 	public int id = 0;
 	public GameObject sweeper;
-	private GameObject Player;
-	private int direction = 1;
-	private float width = 0.5f;
 	public float minTime =20f;
 	public float maxTime =30f;
-
-	private float spawnerSpeed = 4f;
 	public static float xMin;
 	public static float xMax;
 
 	private float time;
 	private float spawnTime;
 	private bool canSpawn;
+	private GameObject Player;
+	private int direction = 1;
+	private float width = 0.5f;
+	private float spawnerSpeed = 4f;
 
 	float padding = 0.2f;
 

@@ -6,11 +6,10 @@ public class BossSpawner : MonoBehaviour {
 	public GameObject boss;
 	private GameObject Player;
 	private GameObject enemySpawner;
+	private GameObject sweeperSpawner;
+	private GameObject disturberSpawner;
 	private int direction = 1;
-	private float width = 9.5f;
-	private float height = 7.0f;
 	public float spawnTime = 30f;
-	private int spesialPlace;	//for enemyS placing
 	private System.Random rand;
 
 	// Use this for initialization
@@ -18,25 +17,19 @@ public class BossSpawner : MonoBehaviour {
 		rand = new System.Random();
 		Player = GameObject.Find ("player");
 		enemySpawner = GameObject.Find ("enemyFormation");
-	}
-
-	public void BoostDetected(){
-		//CancelInvoke ("SpawnEnemies");
-		//Invoke("SpawnEnemies", spawnTime);
+		sweeperSpawner = GameObject.Find ("SweeperSpawner");
+		disturberSpawner = GameObject.Find ("DisturbingEnemySpawner");
 	}
 
 	void SpawnBoss(){
 		foreach (Transform child in this.transform) {
-			GameObject spawn;
-			spawn = Instantiate (boss, child.transform.position, Quaternion.identity);// as GameObject;
-			spawn.transform.parent = child.transform;
-
+			Instantiate (boss, this.transform.position, Quaternion.identity);// as GameObject;
 		}
 
 	}
 
 	void OnDrawGizmos(){
-		Gizmos.DrawWireCube(this.transform.position, new Vector3(width,height));
+		Gizmos.DrawWireCube(this.transform.position, new Vector3(9.5f, 7.0f));
 	}
 
 	void Update(){
@@ -45,6 +38,8 @@ public class BossSpawner : MonoBehaviour {
 			SpawnBoss ();
 			spawnTime = 30;
 			enemySpawner.SetActive (false);
+			sweeperSpawner.SetActive (false);
+			disturberSpawner.SetActive (false);
 		}
 	}
 }

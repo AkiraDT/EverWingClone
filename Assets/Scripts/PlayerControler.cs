@@ -7,37 +7,33 @@ public class PlayerControler : MonoBehaviour {
 	public GameObject[] Laser;
 	public Sprite boostSprite;
 	public Sprite normalSprite;
+	public float speed = 5.0f;
+	public float beamSpeed = 15.0f;
+	public static float xMin;
+	public static float xMax;
+	public float fireRate;
+	public string[] m_tag;
+
+	private float nextFire;
+	float padding = 0.48f;
+	EnemySpawner ES;
 	private bool doubleLaser = false; // id 0
 	private bool levelUp = false; // id 1
 	private bool invinsible = false; // id 2
 	private bool boost = false; // id 3
 	private bool magnet = false; // id 4
-
 	private float doubleLaserTime = 10;
 	private float boostTime = 3;
 	private float invinsibleTime = 10;
 	private float magnetTime = 10;
-
-	float normalSpeed;
-	float normalSpawnTime;
-
 	private ScoreKeeper SK;
 	private int baseLevelIndex = 0;
 	private int levelIndex;
 
-	public float speed = 5.0f;
-	public float beamSpeed = 15.0f;
-
-	public static float xMin;
-	public static float xMax;
-
-	public float fireRate;
-	private float nextFire;
-	float padding = 0.48f;
-
-	public string[] m_tag;
-
-	EnemySpawner ES;
+	float normalSpeed;
+	float normalSpawnTime;
+	float timer = 3f;
+	bool isPlaying = false;
 
 	// Use this for initialization
 	void Start () {
@@ -48,10 +44,9 @@ public class PlayerControler : MonoBehaviour {
 		levelIndex = baseLevelIndex;
 		xMin = camera.ViewportToWorldPoint (new Vector3 (0, 0)).x +padding;
 		xMax = camera.ViewportToWorldPoint (new Vector3 (1, 0)).x -padding;
-
-
 		normalSpawnTime = ES.spawnTime;
 
+		this.GetComponent<SpriteRenderer> ().sprite = boostSprite;
 	}
 
 	public bool getBoostStatus(){
@@ -64,6 +59,12 @@ public class PlayerControler : MonoBehaviour {
 
 	public bool getInvisible(){
 		return invinsible;
+	}
+
+	public bool Magnet{
+		get{
+			return magnet;
+		}
 	}
 	
 	// Update is called once per frame
@@ -87,9 +88,16 @@ public class PlayerControler : MonoBehaviour {
 			rb.velocity = new Vector3 (0, beamSpeed, 0);
 		}
 		*/
+		if (!isPlaying) {
+			timer -= Time.deltaTime;
+		}
+		if(timer <= 0 ){
+			isPlaying = true;
+			this.GetComponent<SpriteRenderer> ().sprite = normalSprite;
+		}
 
 		//auto fire
-		if(!boost)
+		if(!boost && timer<=0)
 			Fire();
 
 		if (doubleLaser) {
@@ -108,10 +116,19 @@ public class PlayerControler : MonoBehaviour {
 				boost = false;
 				boostTime = 3;
 				ES.spawnTime = normalSpawnTime;
-				ES.BoostDetected ();
+				ES.WaveChanged ();
 				this.GetComponent<SpriteRenderer> ().sprite = normalSprite;
 			}
 		}
+
+		if(magnet){
+			magnetTime -= Time.deltaTime;
+			if(magnetTime<= 0){
+				magnetTime = 10;
+				magnet = false;
+			}
+		}
+			
 	}
 
 	void Fire(){
@@ -191,7 +208,10 @@ public class PlayerControler : MonoBehaviour {
 			else if(col.GetComponent<PowerUpScript> ().id == 3){
 				ES.spawnTime = 0.3f;
 				boost = true;
-				ES.BoostDetected ();
+				ES.WaveChanged ();
+			}
+			else if(col.GetComponent<PowerUpScript> ().id == 4){
+				magnet = true;
 			}
 		}
 	}

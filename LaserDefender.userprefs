@@ -1,27 +1,28 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerControler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BackButtonAndroidScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerControler.cs" Line="200" Column="1" />
+      <File FileName="Assets\Scripts\PlayerControler.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Position.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemySpawner.cs" Line="52" Column="3" />
+      <File FileName="Assets\Scripts\EnemySpawner.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ScoreKeeper.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyBehaviour.cs" Line="91" Column="1" />
+      <File FileName="Assets\Scripts\EnemyBehaviour.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Shreder.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PowerUpScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ProjectTile.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelManager.cs" Line="13" Column="5" />
+      <File FileName="Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\TouchInputMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CoinKeeper.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BossSpawner.cs" Line="9" Column="28" />
+      <File FileName="Assets\Scripts\BossSpawner.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BossBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WaveObserver.cs" Line="55" Column="1" />
+      <File FileName="Assets\Scripts\WaveObserver.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\WaveClearUI.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ScrollingBackGround.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BGPositionScript.cs" Line="32" Column="3" />
-      <File FileName="Assets\Scripts\SweeperSpawnerScript.cs" Line="37" Column="3" />
-      <File FileName="Assets\Scripts\SweeperLineScript.cs" Line="18" Column="2" />
-      <File FileName="Assets\Scripts\DisturbingEnemyBehaviourScript.cs" Line="100" Column="1" />
+      <File FileName="Assets\Scripts\BGPositionScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SweeperSpawnerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SweeperLineScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DisturbingEnemyBehaviourScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BackButtonAndroidScript.cs" Line="10" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -6,13 +6,14 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject enemy;
 	public GameObject enemyS;	//Unique enemy
 	public GameObject waveObserver;
-	private float width = 9.5f;
-	private float height = 7.0f;
-	public float spawnTime = 1.5f;
+	public float spawnTime;
+
 	private int counter = 5;
 	private int spesialPlace;	//for enemyS placing
 	private System.Random rand;
 	private int maxCount = 7;
+	private float width = 9.5f;
+	private float height = 7.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
 		Invoke("SpawnEnemies", spawnTime);
 	}
 
-	public void BoostDetected(){
+	public void WaveChanged(){
 		CancelInvoke ("SpawnEnemies");
 		Invoke("SpawnEnemies", spawnTime);
 	}
