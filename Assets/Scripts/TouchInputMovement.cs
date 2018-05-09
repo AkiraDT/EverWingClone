@@ -9,6 +9,8 @@ public class TouchInputMovement : MonoBehaviour, IDragHandler, IPointerUpHandler
 	float offDistance;
 	float startPos;
 	private Camera m_camera;
+	//private float pos1, pos2;
+
 	// Use this for initialization
 	void Start () {
 		Player = GameObject.Find ("player");
@@ -27,11 +29,18 @@ public class TouchInputMovement : MonoBehaviour, IDragHandler, IPointerUpHandler
 	public virtual void OnDrag(PointerEventData ped){
 		if(Player == null)
 			return;
-		//Player.transform.position = new Vector2 (Mathf.Clamp(((Input.mousePosition.x-83f) * 0.05f)/*Time.deltaTime*/, camera.ViewportToWorldPoint (new Vector3 (0, 0)).x +0.48f, camera.ViewportToWorldPoint (new Vector3 (1, 0)).x -0.48f), Player.transform.position.y);
-
 		Vector3 pos = new Vector3 (Input.mousePosition.x, Player.transform.position.y, Player.transform.position.z);
 
-		Player.transform.position = new Vector2 (Mathf.Clamp(offDistance + m_camera.ScreenToWorldPoint(pos).x/*Time.deltaTime*/, m_camera.ViewportToWorldPoint (new Vector3 (0, 0)).x +0.48f, m_camera.ViewportToWorldPoint (new Vector3 (1, 0)).x -0.48f), Player.transform.position.y);
+		//pos1 = Player.transform.position.x;
+
+		Player.transform.position = new Vector2 (Mathf.Clamp(offDistance + m_camera.ScreenToWorldPoint(pos).x, m_camera.ViewportToWorldPoint (new Vector3 (0, 0)).x +0.48f, m_camera.ViewportToWorldPoint (new Vector3 (1, 0)).x -0.48f), Player.transform.position.y);
+
+		/*
+		pos2 = Player.transform.position.x;
+		if (pos2 > pos1) {
+			Player.transform.rotation = Quaternion.Lerp (this.transform.rotation, Quaternion.Euler (new Vector3 (Player.transform.rotation.x, Player.transform.rotation.x, -30f)), Time.deltaTime); 
+		} 
+		*/
 
 	}
 

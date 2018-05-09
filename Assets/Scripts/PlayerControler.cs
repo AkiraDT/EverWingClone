@@ -24,11 +24,12 @@ public class PlayerControler : MonoBehaviour {
 	private bool magnet = false; // id 4
 	private float doubleLaserTime = 10;
 	private float boostTime = 3;
-	private float invinsibleTime = 10;
+	//private float invinsibleTime = 10;
 	private float magnetTime = 10;
 	private ScoreKeeper SK;
 	private int baseLevelIndex = 0;
 	private int levelIndex;
+	private GameObject Holo;
 
 	float normalSpeed;
 	float normalSpawnTime;
@@ -45,7 +46,8 @@ public class PlayerControler : MonoBehaviour {
 		xMin = camera.ViewportToWorldPoint (new Vector3 (0, 0)).x +padding;
 		xMax = camera.ViewportToWorldPoint (new Vector3 (1, 0)).x -padding;
 		normalSpawnTime = ES.spawnTime;
-
+		Holo = this.transform.GetChild (0).gameObject;
+		Holo.SetActive (false);
 		this.GetComponent<SpriteRenderer> ().sprite = boostSprite;
 	}
 
@@ -126,6 +128,7 @@ public class PlayerControler : MonoBehaviour {
 			if(magnetTime<= 0){
 				magnetTime = 10;
 				magnet = false;
+				Holo.SetActive (false);
 			}
 		}
 			
@@ -211,7 +214,9 @@ public class PlayerControler : MonoBehaviour {
 				ES.WaveChanged ();
 			}
 			else if(col.GetComponent<PowerUpScript> ().id == 4){
+				magnetTime = 10;
 				magnet = true;
+				Holo.SetActive (true);
 			}
 		}
 	}

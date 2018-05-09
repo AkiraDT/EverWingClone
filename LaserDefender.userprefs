@@ -1,17 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BackButtonAndroidScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchInputMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerControler.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerControler.cs" Line="22" Column="2" />
       <File FileName="Assets\Scripts\Position.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EnemySpawner.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ScoreKeeper.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EnemyBehaviour.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Shreder.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PowerUpScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ProjectTile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TouchInputMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TouchInputMovement.cs" Line="51" Column="1" />
       <File FileName="Assets\Scripts\CoinKeeper.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BossSpawner.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BossBehaviour.cs" Line="1" Column="1" />
@@ -22,7 +21,11 @@
       <File FileName="Assets\Scripts\SweeperSpawnerScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SweeperLineScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DisturbingEnemyBehaviourScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BackButtonAndroidScript.cs" Line="10" Column="2" />
+      <File FileName="Assets\Scripts\BackButtonAndroidScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DestroyTimer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PowerUpScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MagnetField.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BossAnimationScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
